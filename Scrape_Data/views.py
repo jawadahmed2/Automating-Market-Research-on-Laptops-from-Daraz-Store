@@ -4,15 +4,18 @@ from requests import session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import abort, redirect, render_template, jsonify, request, url_for
 from .models import User, UserSchema, db
+from sqlalchemy.exc import SQLAlchemyError
+
+
 user_schema = UserSchema()
 user_schema = UserSchema(many=True)
-from sqlalchemy.exc import SQLAlchemyError
 
 
 
 @app.route('/')
 def index():
     return 'Server Is Active. Access its Services Through Client or Frontend'
+
 
 @app.route("/registration/api", methods=["POST"])
 def registration():
@@ -36,6 +39,7 @@ def registration():
                 db.session.commit()
                 return jsonify({'name': success})
             except SQLAlchemyError as e:
+                db.session.rollback()
                 error_msg = str(e.__class__.__name__) + ": " + str(e)
                 return jsonify({'error': error_msg})
 
@@ -48,6 +52,7 @@ def registration():
             db.session.commit()
             return jsonify({'name': success})
         except SQLAlchemyError as e:
+            db.session.rollback()
             error_msg = str(e.__class__.__name__) + ": " + str(e)
             return jsonify({'error': error_msg})
 

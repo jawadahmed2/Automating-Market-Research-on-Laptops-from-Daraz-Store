@@ -24,6 +24,7 @@ $(document).ready(function () {
                 if (data.error) {
                     $('#errorAlert').text(data.error).show();
                     $('#successAlert').hide();
+                    console.log(data.error);
                 }
                 else {
                     $('#successAlert').text(data.name).show();
