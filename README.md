@@ -1,7 +1,7 @@
 # Automating-Market-Research-on-Laptops-from-Daraz-Store
-Python Internship  Project At Codeaza  Technologies
+## Python Internship  Project At Codeaza  Technologies
 
-## Problem Statement: Automating Market Research on Laptops from Daraz Store
+### Problem Statement: Automating Market Research on Laptops from Daraz Store
 - Background: Our client, a seller on the popular e-commerce platform Daraz, is looking to gather
 market research data on laptops available in the store. They want to automate the process of
 scraping data from the “laptop” category on Daraz and store it in a database for further analysis.
