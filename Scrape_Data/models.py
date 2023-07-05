@@ -29,4 +29,4 @@ class UserSchema(ma.Schema):
     class Meta:
         fields = ('id', 'firstName','lastName','userName','email','password')
 
-db.create_all()
+# db.create_all()
