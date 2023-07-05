@@ -6,6 +6,7 @@ from flask import abort, redirect, render_template, jsonify, request, url_for
 from .models import User, UserSchema, db
 user_schema = UserSchema()
 user_schema = UserSchema(many=True)
+from sqlalchemy.exc import SQLAlchemyError
 
 
 
@@ -30,19 +31,28 @@ def registration():
         result = user_schema.dump(query)
         if len(result) == 0:
             print('Success')
-            db.session.add(registration_items)
-            db.session.commit()
-            return jsonify({'name': success})
+            try:
+                db.session.add(registration_items)
+                db.session.commit()
+                return jsonify({'name': success})
+            except SQLAlchemyError as e:
+                error_msg = str(e.__class__.__name__) + ": " + str(e)
+                return jsonify({'error': error_msg})
 
         flag = any(obj['email'] == email for obj in result)
         if flag:
             return jsonify({'error': 'Email already exists. Kindly login.'})
         print('Successfully Added')
-        db.session.add(registration_items)
-        db.session.commit()
-        return jsonify({'name': success})
+        try:
+            db.session.add(registration_items)
+            db.session.commit()
+            return jsonify({'name': success})
+        except SQLAlchemyError as e:
+            error_msg = str(e.__class__.__name__) + ": " + str(e)
+            return jsonify({'error': error_msg})
 
     return jsonify({'error': 'Missing data! Kindly Fill All Entries.'})
+
 
 
 @app.route("/login/api", methods=["POST"])
