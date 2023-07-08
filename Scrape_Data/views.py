@@ -1,14 +1,19 @@
 from Scrape_Data import app
 import json
+from numpy import tile
 from requests import session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import abort, redirect, render_template, jsonify, request, url_for
-from .models import User, UserSchema, db
+from .models import User, UserSchema, Product_Reviews, Product_ReviewsSchema, db
+from .scrapeReviews import getdata, parse_html, get_cus_names, get_cus_reviews, reviews_in_json, make_dataframe, wordCloud, getTitle
+from urllib.parse import urlparse
 from sqlalchemy.exc import SQLAlchemyError
-
 
 user_schema = UserSchema()
 user_schema = UserSchema(many=True)
+
+product_review_schema = Product_ReviewsSchema()
+product_review_schema = Product_ReviewsSchema(many=True)
 
 
 
@@ -92,3 +97,135 @@ def logout():
     session.pop('id', None)
     session.pop('email', None)
     return jsonify({'logout': 'home'})
+
+
+@app.route('/scrapeReviewsGuest/api', methods=['POST'])
+def guestscrapeReviews():
+    if urlparse(request.form['url']).netloc == 'www.amazon.com':
+        product_url = request.form['url']
+        # Parse Product data
+        parse_product = parse_html(product_url)
+        # Getting the customer names
+        names = get_cus_names(parse_product)
+
+        if len(names) > 0:
+            names.pop(0)
+            cus_names = []  # Finalize the customer names
+            # Remove the duplicates
+            [cus_names.append(x) for x in names if x not in cus_names]
+
+            # Get the reviews data
+            rev_data = get_cus_reviews(parse_product)
+            title = getTitle(request.form['url'])
+
+            if title is not None:
+                print(title)
+                title_value = title.string
+            else:
+                title_value = "Unknown"
+
+            # Convert the customer names and their reviews into JSON
+            get_json_reviews = json.loads(reviews_in_json(cus_names, rev_data, title_value))
+
+            print('Successfully Scraped Product Reviews')
+            # frequent_words = wordCloud(make_dataframe(cus_names, rev_data))
+            # print(frequent_words)
+            return jsonify(get_json_reviews)
+
+    return jsonify({'error': 'Missing data! OR Invalid Amazon Product Link!'})
+
+
+
+
+@app.route('/scrapeReviewsUser/api', methods=['POST'])
+def scrapeReviewsUser():
+    # if 'loggedin' not in session:
+    #     return redirect(url_for('guestscrapeReviews'))
+    if urlparse(request.form['url']).netloc != 'www.amazon.com':
+        return jsonify({'error': 'Missing data! OR Invalid Amazon Product Link!'})
+
+    product_url = request.form['url']
+    # Parse Product data
+    parse_product = parse_html(product_url)
+    # getting the customer names
+    names = get_cus_names(parse_product)
+    names.pop(0)
+    cus_names = []  # finalize the customer names
+    # remove the dublicates
+    [cus_names.append(x) for x in names if x not in cus_names]
+    # Get the reviews data
+    rev_data = get_cus_reviews(parse_product)
+    title = getTitle(request.form['url'])
+    # convert the customer names and its reviews into json
+    get_json_reviews = json.loads(
+        reviews_in_json(cus_names, rev_data, title))
+    print('Successfully Scraped Product Reviews')
+    frequent_words = wordCloud(make_dataframe(cus_names, rev_data))
+    # print(frequent_words)
+
+    # print(get_json_reviews)
+    try:
+        reviews_items = Product_Reviews(title, json.dumps(
+            get_json_reviews), ' '.join(str(item) for item in frequent_words))
+        db.session.add(reviews_items)
+        db.session.commit()
+    except ValueError:
+        print("Values Not Store In The Database")
+
+    # Id = session['id']
+    # print(Id)
+    return jsonify(get_json_reviews)
+
+
+@app.route('/scrapeFrequentWords/api', methods=['POST'])
+def scrapeFrequentWords():
+    # if 'loggedin' not in session:
+    #     return redirect(url_for('guestscrapeReviews'))
+    if urlparse(request.form['url']).netloc != 'www.amazon.com':
+        return jsonify({'error': 'Missing data! OR Invalid Amazon Product Link!'})
+
+    product_url = request.form['url']
+    # Parse Product data
+    parse_product = parse_html(product_url)
+    # getting the customer names
+    names = get_cus_names(parse_product)
+    names.pop(0)
+    cus_names = []  # finalize the customer names
+    # remove the dublicates
+    [cus_names.append(x) for x in names if x not in cus_names]
+    # Get the reviews data
+    rev_data = get_cus_reviews(parse_product)
+    print('Successfully Scraped Product Reviews')
+    frequent_words = wordCloud(make_dataframe(cus_names, rev_data))
+    words = dict(enumerate(frequent_words))
+    print(words)
+    return jsonify(words)
+
+@app.route("/adminHome/api", methods=["GET"])
+def get_user_length():
+    items = User.query.all()
+    result = user_schema.dump(items)
+    length = len(result)
+    return jsonify({'length': length})
+
+@app.route("/adminUser/api", methods=["GET"])
+def get_user_details():
+    items = User.query.all()
+    result = user_schema.dump(items)
+    return jsonify(result)
+
+@app.route("/showProducts/api", methods=["GET"])
+def get_product_details():
+    items = Product_Reviews.query.all()
+    result = product_review_schema.dump(items)
+    print(result)
+    return jsonify(result)
+
+@app.route("/userDelete/api/<id>", methods=["GET"])
+def delete_user(id):
+    if user := User.query.get(id):
+        db.session.delete(user)
+        db.session.commit()
+        return user_schema.jsonify(user)
+
+    return abort(404)
