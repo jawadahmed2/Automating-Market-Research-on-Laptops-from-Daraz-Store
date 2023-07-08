@@ -34,13 +34,15 @@ def home():
     # Return the JSON data to the home.html template
     return jsonify(serialized_data)
 
-@app.route('/start-scraping', methods=['POST'])
-def start_scraping():
+@app.route('/startsraping/api', methods=['GET'])
+def startscraping():
     # Call the scrapeLaptopData function to start the scraping process
+    print('Request Made To Start Scraping')
     scrape_laptop_data()
 
     # Return a response indicating the scraping process has started
     return "Scraping process started"
+
 
 
 @app.route("/registration/api", methods=["POST"])

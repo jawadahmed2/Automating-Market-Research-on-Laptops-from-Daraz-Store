@@ -1,1 +1,97 @@
-2023-07-08 22:52:16,217 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:53:49,184 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:53:50,634 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-07-09 01:53:50,635 - INFO - [33mPress CTRL+C to quit[0m
+2023-07-09 01:53:50,655 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 01:53:55,433 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:53:57,076 - WARNING -  * Debugger is active!
+2023-07-09 01:53:57,092 - INFO -  * Debugger PIN: 202-383-953
+2023-07-09 01:54:09,729 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\numpy\\_typing\\__init__.py', reloading
+2023-07-09 01:54:09,737 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\numpy\\_typing\\_array_like.py', reloading
+2023-07-09 01:54:09,749 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\numpy\\_typing\\_nested_sequence.py', reloading
+2023-07-09 01:54:09,761 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\numpy\\_typing\\_generic_alias.py', reloading
+2023-07-09 01:54:09,801 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\security.py', reloading
+2023-07-09 01:54:09,817 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\helpers.py', reloading
+2023-07-09 01:54:09,839 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\wrappers\\__init__.py', reloading
+2023-07-09 01:54:09,842 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\wrappers\\response.py', reloading
+2023-07-09 01:54:09,883 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\sansio\\response.py', reloading
+2023-07-09 01:54:09,891 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\templating.py', reloading
+2023-07-09 01:54:09,899 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\jinja2\\__init__.py', reloading
+2023-07-09 01:54:09,901 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\jinja2\\environment.py', reloading
+2023-07-09 01:54:09,957 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\json\\__init__.py', reloading
+2023-07-09 01:54:09,964 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\wrappers.py', reloading
+2023-07-09 01:54:09,970 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\globals.py', reloading
+2023-07-09 01:54:09,981 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\wrappers\\request.py', reloading
+2023-07-09 01:54:10,002 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\sansio\\request.py', reloading
+2023-07-09 01:54:10,031 - INFO -  * Detected change in 'C:\\Program Files\\Python311\\Lib\\urllib\\parse.py', reloading
+2023-07-09 01:54:10,141 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\marshmallow\\types.py', reloading
+2023-07-09 01:54:10,165 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\typing.py', reloading
+2023-07-09 01:54:10,172 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\datastructures\\__init__.py', reloading
+2023-07-09 01:54:10,294 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\marshmallow\\fields.py', reloading
+2023-07-09 01:54:10,349 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\marshmallow\\decorators.py', reloading
+2023-07-09 01:54:10,360 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\marshmallow\\utils.py', reloading
+2023-07-09 01:54:10,390 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\__init__.py', reloading
+2023-07-09 01:54:10,390 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\__init__.py', reloading
+2023-07-09 01:54:10,394 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\chrome\\options.py', reloading
+2023-07-09 01:54:10,401 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\chromium\\options.py', reloading
+2023-07-09 01:54:10,407 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\options.py', reloading
+2023-07-09 01:54:10,459 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\proxy.py', reloading
+2023-07-09 01:54:10,476 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\chrome\\webdriver.py', reloading
+2023-07-09 01:54:10,483 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\chromium\\webdriver.py', reloading
+2023-07-09 01:54:10,491 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\remote\\webdriver.py', reloading
+2023-07-09 01:54:10,561 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\timeouts.py', reloading
+2023-07-09 01:54:10,564 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\remote\\file_detector.py', reloading
+2023-07-09 01:54:10,575 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\virtual_authenticator.py', reloading
+2023-07-09 01:54:10,581 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\chrome\\service.py', reloading
+2023-07-09 01:54:10,582 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\chromium\\__init__.py', reloading
+2023-07-09 01:54:10,582 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\chromium\\service.py', reloading
+2023-07-09 01:54:10,597 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\__init__.py', reloading
+2023-07-09 01:54:10,598 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\service.py', reloading
+2023-07-09 01:54:10,609 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\by.py', reloading
+2023-07-09 01:54:10,613 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\remote\\webelement.py', reloading
+2023-07-09 01:54:10,703 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\utils.py', reloading
+2023-07-09 01:54:10,743 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\_internal.py', reloading
+2023-07-09 01:54:11,189 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 01:54:16,499 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:54:17,919 - WARNING -  * Debugger is active!
+2023-07-09 01:54:17,939 - INFO -  * Debugger PIN: 202-383-953
+2023-07-09 01:54:37,894 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\sqlalchemy\\sql\\annotation.py', reloading
+2023-07-09 01:54:38,579 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 01:54:43,259 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:54:44,666 - WARNING -  * Debugger is active!
+2023-07-09 01:54:44,670 - INFO -  * Debugger PIN: 202-383-953
+2023-07-09 01:57:04,001 - INFO -  * Detected change in 'C:\\Program Files\\Python311\\Lib\\typing.py', reloading
+2023-07-09 01:57:04,177 - INFO -  * Detected change in 'C:\\Program Files\\Python311\\Lib\\warnings.py', reloading
+2023-07-09 01:57:05,238 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 01:57:10,049 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:57:11,511 - WARNING -  * Debugger is active!
+2023-07-09 01:57:11,532 - INFO -  * Debugger PIN: 202-383-953
+2023-07-09 01:57:25,583 - INFO -  * Detected change in 'C:\\Program Files\\Python311\\Lib\\csv.py', reloading
+2023-07-09 01:57:25,750 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\schedule\\__init__.py', reloading
+2023-07-09 01:57:25,781 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\common\\exceptions.py', reloading
+2023-07-09 01:57:25,787 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\action_chains.py', reloading
+2023-07-09 01:57:25,818 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\remote\\command.py', reloading
+2023-07-09 01:57:25,836 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\remote\\script_key.py', reloading
+2023-07-09 01:57:25,988 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\action_builder.py', reloading
+2023-07-09 01:57:25,988 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\pointer_actions.py', reloading
+2023-07-09 01:57:25,998 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\interaction.py', reloading
+2023-07-09 01:57:26,011 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\pointer_input.py', reloading
+2023-07-09 01:57:26,011 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\input_device.py', reloading
+2023-07-09 01:57:26,020 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\__init__.py', reloading
+2023-07-09 01:57:26,038 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\key_actions.py', reloading
+2023-07-09 01:57:26,047 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\webdriver\\common\\actions\\mouse_button.py', reloading
+2023-07-09 01:57:26,658 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\selenium\\common\\__init__.py', reloading
+2023-07-09 01:57:27,158 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 01:57:32,003 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:57:33,661 - WARNING -  * Debugger is active!
+2023-07-09 01:57:33,689 - INFO -  * Debugger PIN: 202-383-953
+2023-07-09 01:58:55,603 - INFO -  * Detected change in 'C:\\Program Files\\Python311\\Lib\\logging\\__init__.py', reloading
+2023-07-09 01:58:56,951 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 01:59:01,644 - INFO - Executing: C:\Users\jawad2019.namal\AppData\Roaming\Python\Python311\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --output json
+2023-07-09 01:59:03,140 - WARNING -  * Debugger is active!
+2023-07-09 01:59:03,146 - INFO -  * Debugger PIN: 202-383-953
+2023-07-09 01:59:08,274 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\sqlalchemy\\sql\\elements.py', reloading
+2023-07-09 01:59:08,348 - INFO -  * Detected change in 'C:\\Users\\jawad2019.namal\\AppData\\Roaming\\Python\\Python311\\site-packages\\sqlalchemy\\sql\\traversals.py', reloading
+2023-07-09 01:59:09,460 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 02:04:36,926 - INFO -  * Restarting with watchdog (windowsapi)
+2023-07-09 02:04:54,703 - INFO -  * Restarting with watchdog (windowsapi)

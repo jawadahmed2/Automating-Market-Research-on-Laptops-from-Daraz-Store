@@ -1,6 +1,7 @@
 import csv
 import time
 import logging
+import warnings
 import schedule
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -10,24 +11,26 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from .models import Laptop_Data, Laptop_DataSchema, db
 from flask import jsonify
+warnings.filterwarnings("ignore")
+
 
 laptop_schema = Laptop_DataSchema()
 laptop_schema = Laptop_DataSchema(many=True)
 
 # Configure logging
 
-logging.basicConfig(filename='selenium_bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Set up Selenium Chrome options
-chrome_options = Options()
-chrome_options.add_argument('--headless')  # Run in headless mode to avoid opening a browser window
-chrome_options.add_argument('--log-level=3')  # Suppress logging messages
-
-# Create a new instance of the Chrome driver
-driver = webdriver.Chrome(options=chrome_options)
+# logging.basicConfig(filename='selenium_bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def scrape_laptop_data():
+    # Set up Selenium Chrome options
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')  # Run in headless mode to avoid opening a browser window
+    chrome_options.add_argument('--log-level=3')  # Suppress logging messages
+
+    # Create a new instance of the Chrome driver
+    driver = webdriver.Chrome(options=chrome_options)
+    print('Laptop Data Scraping Started')
     try:
         # Open Daraz website
         driver.get('https://www.daraz.pk/')
@@ -120,16 +123,15 @@ def scrape_laptop_data():
 
                 # Store the laptop details into the database using Flask ORM
 
-                # Check if the laptop with the same name already exists
                 existing_laptop = Laptop_Data.query.filter_by(laptopName=name).first()
                 if existing_laptop is None:
                     # Store the laptop details in a new record
-                    laptop_data = Laptop_Data(name, price, rating)
+                    laptop_data = Laptop_Data(laptopName=name, laptopPrice=price, laptopRating=rating)
                     db.session.add(laptop_data)
                     db.session.commit()
 
                     # Serialize the laptop data using the schema
-                    serialized_data = laptop_schema.dump(laptop_data)
+                    serialized_data = laptop_schema.dump([laptop_data])
                     json_data = jsonify(serialized_data)
                     # Perform any further processing or response handling with the JSON data
 
