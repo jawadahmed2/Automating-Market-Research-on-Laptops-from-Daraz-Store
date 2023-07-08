@@ -32,6 +32,15 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+        button {
+            background-color: #04AA6D;
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -153,7 +162,7 @@
                         <div class="col-md-12 grid-margin">
                             <div class="row">
                                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                                    <h3 class="font-weight-bold">Welcome Guest User</h3>
+                                    <h3 class="font-weight-bold">Welcome User</h3>
                                 </div>
                                 <div class="col-12 col-xl-4">
                                     <div class="justify-content-end d-flex">
@@ -219,7 +228,7 @@
                     <div class="col-md-8 grid-margin stretch-card">
                         <div class="card">
                             <br>
-                            <p class="card-title">Paste Laptop on Daraz Link Below: </p>
+                            <p class="card-title">Paste Daraz Product Link In Order To Get Reviews: </p>
                             <form class="form-inline">
                                 <label style="font-weight:bold">URL:</label><br>
                                 <input type="text" id="url" name="URL" size="90"><br>
@@ -271,12 +280,51 @@
                         </div>
                     </div>
                 </div>
+                <br>
+
+                <form class="form-inline">
+                    <!-- <input type="submit" id="start-scraping-btn" value="Start Laptop Data Scraping"> -->
+                    <button class="" id="start-scraping-btn">Start Laptop Data Scraping</button>
+                    <div id="successAlert1" class="alert alert-success" role="alert" style="display:none;"></div>
+                    <div id="waitAlert1" class="alert alert-success" role="alert" style="display:none;"></div>
+                    <div id="errorAlert1" class="alert alert-danger" role="alert" style="display:none;"></div>
+                </form>
+
+                <div class="row">
+                    <div class="col-md-10 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-title mb-0">Scraped Daraz Laptop Data Upto 10 Pages</p>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-borderless" id="scraped_table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Laptop Name</th>
+                                                <th>Laptop Price</th>
+                                                <th>Laptop Ranking</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <!-- <td id="rev_name">1</td>
+                        <td id="rev_name">Search Engine Marketing</td>
+                        <td id="rev_name">21 Sep 2018</td>
+                        <td id="rev_rank">9</td> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
                         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©
-                            2022.Amazon Product
+                            2023.Daraz Product
                             Scraping System <br> All rights reserved.</span>
                     </div>
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -367,6 +415,74 @@
 
 
         });
+
+        $(document).ready(function () {
+            // Function to start the scraping process
+            function startScraping() {
+                $('#scraped_table tbody').empty();
+                $('#successAlert1').hide();
+                $('#errorAlert1').hide();
+                $('#waitAlert1').text('Wait Product Is Scraping').show();
+
+                $.ajax({
+                    url: "/start-scraping",
+                    type: "POST",
+                    success: function (response) {
+                        console.log(response);
+                        // After starting the scraping, fetch and display the laptop data
+                        fetchLaptopData();
+                        $('#waitAlert1').text('Wait Product Is Scraping').hide();
+                        $('#successAlert1').text('Laptop Data Sraped Successfully').show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error starting the scraping process:", error);
+                        $('#errorAlert1').text('Error starting the scraping process').show();
+                    }
+                });
+            }
+
+            // Function to fetch the laptop data and populate the table
+            function fetchLaptopData() {
+                $.ajax({
+                    url: "/home",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        // Process the JSON data and populate the table
+                        var laptopData = data;
+                        var tableBody = $("#scraped_table tbody");
+                        tableBody.empty();
+
+                        // Iterate over the laptop data and populate the table rows
+                        for (var i = 0; i < laptopData.length; i++) {
+                            var laptop = laptopData[i];
+
+                            // Extract the truncated laptop name
+                            var truncatedName = laptop.laptopName.split(/,|-|\|/)[0].trim();
+
+                            var rowHtml = "<tr>" +
+                                "<td>" + (i + 1) + "</td>" +
+                                "<td>" + truncatedName + "</td>" +
+                                "<td>" + laptop.laptopPrice + "</td>" +
+                                "<td>" + laptop.laptopRating + "</td>" +
+                                "</tr>";
+                            tableBody.append(rowHtml);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error retrieving laptop data:", error);
+                        $('#errorAlert1').text('Error retrieving laptop data').show();
+                    }
+                });
+            }
+
+            // Button click event handler
+            $("#start-scraping-btn").click(function () {
+                startScraping();
+            });
+        });
+
+
 
 
     </script>

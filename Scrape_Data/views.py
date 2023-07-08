@@ -1,13 +1,14 @@
-from Scrape_Data import app
 import json
 from numpy import tile
 from requests import session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import abort, redirect, render_template, jsonify, request, url_for
-from .models import User, UserSchema, Product_Reviews, Product_ReviewsSchema, db
+from .models import User, UserSchema, Product_Reviews, Product_ReviewsSchema,Laptop_Data, Laptop_DataSchema, db
 from .scrapeReviews import getdata, parse_html, get_cus_names, get_cus_reviews, reviews_in_json, make_dataframe, wordCloud, getTitle
 from urllib.parse import urlparse
 from sqlalchemy.exc import SQLAlchemyError
+from .scrapeLaptopData import scrape_laptop_data
+from Scrape_Data import app
 
 user_schema = UserSchema()
 user_schema = UserSchema(many=True)
@@ -15,11 +16,31 @@ user_schema = UserSchema(many=True)
 product_review_schema = Product_ReviewsSchema()
 product_review_schema = Product_ReviewsSchema(many=True)
 
-
+laptop_schema = Laptop_DataSchema()
+laptop_schema = Laptop_DataSchema(many=True)
 
 @app.route('/')
 def index():
     return 'Server Is Active. Access its Services Through Client or Frontend'
+
+@app.route('/home')
+def home():
+    # Retrieve the laptop data from the database
+    laptop_data = Laptop_Data.query.all()
+
+    # Serialize the laptop data using the schema
+    serialized_data = laptop_schema.dump(laptop_data)
+
+    # Return the JSON data to the home.html template
+    return jsonify(serialized_data)
+
+@app.route('/start-scraping', methods=['POST'])
+def start_scraping():
+    # Call the scrapeLaptopData function to start the scraping process
+    scrape_laptop_data()
+
+    # Return a response indicating the scraping process has started
+    return "Scraping process started"
 
 
 @app.route("/registration/api", methods=["POST"])
@@ -101,7 +122,7 @@ def logout():
 
 @app.route('/scrapeReviewsGuest/api', methods=['POST'])
 def guestscrapeReviews():
-    if urlparse(request.form['url']).netloc == 'www.amazon.com':
+    if urlparse(request.form['url']).netloc == 'www.daraz.pk':
         product_url = request.form['url']
         # Parse Product data
         parse_product = parse_html(product_url)
@@ -109,17 +130,16 @@ def guestscrapeReviews():
         names = get_cus_names(parse_product)
 
         if len(names) > 0:
-            names.pop(0)
+            # names.pop(0)
             cus_names = []  # Finalize the customer names
             # Remove the duplicates
             [cus_names.append(x) for x in names if x not in cus_names]
 
             # Get the reviews data
             rev_data = get_cus_reviews(parse_product)
-            title = getTitle(request.form['url'])
+            title = getTitle(parse_product)
 
             if title is not None:
-                print(title)
                 title_value = title.string
             else:
                 title_value = "Unknown"
@@ -132,7 +152,8 @@ def guestscrapeReviews():
             # print(frequent_words)
             return jsonify(get_json_reviews)
 
-    return jsonify({'error': 'Missing data! OR Invalid Amazon Product Link!'})
+    return jsonify({'error': 'Missing data! OR Invalid Daraz Product Link!'})
+
 
 
 
