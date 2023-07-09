@@ -64,7 +64,3 @@ def botscraping():
     # Return a response indicating the scraping process has started
     return "Automatically Selenium Bot Scraping process started"
 
-
-@app.route('/scrapeReviews/api', methods=['POST'])
-def guestscrapeReviews():
-   pass

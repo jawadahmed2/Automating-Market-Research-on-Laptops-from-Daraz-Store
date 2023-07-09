@@ -212,7 +212,7 @@
                 </form>
 
                 <div class="row">
-                    <div class="col-md-10 grid-margin stretch-card">
+                    <div class="col-md-11 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
                                 <p class="card-title mb-0">Scraped Daraz Laptop Data Upto N Pages</p>
@@ -282,57 +282,6 @@
 
     <!--Script For Sending Data To The Server-->
     <script>
-        $(document).ready(function () {
-
-            $("#scrape_btn").click(function (event) {
-                $('#successAlert').hide();
-                $('#errorAlert').hide();
-                $('#review_table tbody').empty();
-                $('#waitAlert').text('Wait Product Is Scraping').show();
-
-                event.preventDefault();
-                $.ajax({
-                    data: {
-                        url: $('#url').val(),
-                    },
-                    type: 'POST',
-                    url: 'http://127.0.0.1:5000/scrapeReview/api'
-
-                }).done(function (data) {
-                    if (data.error) {
-                        $('#waitAlert').text('Wait Product Is Scraping').hide();
-                        $('#errorAlert').text(data.error).show();
-                        $('#successAlert').hide();
-                        return false
-                    }
-                    else {
-                        $('#product_name').text(data.Title).show();
-                        $('#errorAlert').hide();
-                    }
-                    $('#review_table').show();
-                    $.each(data, function (i, v) {
-                        // console.log(i, v);
-                        // $("tbody").append("<tr><td>" + data['Name'][index] + "</td><td>" + "</td><td>" + data['Review'][index] + "</td></tr>");
-                        $.each(v, function (ind, val) {
-                            console.log(ind, val);
-                            $("tbody").append("<tr><td>" + ind + "</td><td>" + data['Name'][ind] + "</td><td>" + "</td><td>" + data['Review'][ind] + "</td></tr>");
-
-                        });
-                        $('#waitAlert').text('Wait Product Is Scraping').hide();
-                        $('#successAlert').text('Product Sraped Successfully').show();
-                        return false;
-
-                    });
-
-
-                });
-                event.preventDefault();
-
-            });
-
-
-        });
-
 
         $(document).ready(function () {
             // Function to start the scraping process
@@ -436,7 +385,7 @@
 
                 $('#successAlert2').hide();
                 $('#errorAlert2').hide();
-                $('#waitAlert2').text(`Selenium Bot is set to scrape after ${numDays} days`).show();
+                $('#waitAlert2').text(`Selenium Bot is successfully set to scrape after ${numDays} days`).show();
 
                 $.ajax({
                     url: "http://127.0.0.1:5000/schedulebot/api",
