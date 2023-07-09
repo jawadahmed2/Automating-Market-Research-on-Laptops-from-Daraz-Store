@@ -184,63 +184,22 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 grid-margin stretch-card">
-                        <div class="card">
-                            <br>
-                            <p class="card-title">Paste Daraz Product Link In Order To Get Reviews: </p>
-                            <form class="form-inline">
-                                <label style="font-weight:bold">URL:</label><br>
-                                <input type="text" id="url" name="URL" size="90"><br>
-                                <br><br>
-                                <input type="submit" id="scrape_btn" value="Scrape">
+                            <form class="form" id="scraping-form">
+                                <label for="days-input">Number of Days to Schedule Selenium Bot:</label>
+                                <input type="number" id="days-input" min="1" step="1"><br>
+                                <input type="submit" id="schedule-bot-btn" value="Schedule Selenium Bot">
+                                <div id="successAlert2" class="alert alert-success" role="alert" style="display:none;">
+                                </div>
+                                <div id="waitAlert2" class="alert alert-info" role="alert" style="display:none;"></div>
+                                <div id="errorAlert2" class="alert alert-danger" role="alert" style="display:none;">
+                                </div>
                             </form>
-                            <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
-                            <div id="waitAlert" class="alert alert-success" role="alert" style="display:none;"></div>
-                            <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-title mb-0">Product Name:</p>
-                                <div class="d-flex justify-content-between">
-                                    <br>
-                                    <h3 id="product_name"></h3>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-10 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-title mb-0">Scraped Product Reviews:</p>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-borderless" id="review_table">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Reviewer Name</th>
-                                                <th>Reviews Text</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
+                <br><br>
 
                 <form class="form">
                     <!-- <button class="" id="start-scraping-btn">Start Laptop Data Scraping</button> -->
@@ -408,21 +367,7 @@
                     }
                 });
             }
-            // Function to fetch the total number of laptop data
-            function fetchTotalLaptopData() {
-                $.ajax({
-                    url: "http://127.0.0.1:5000/get-total-laptop-data/api",
-                    type: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        var totalLaptopData = data.total;
-                        $("#total_laptop_data").text(totalLaptopData);
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Error retrieving total laptop data:", error);
-                    }
-                });
-            }
+
             // Function to fetch the laptop data and populate the table
             function fetchLaptopData() {
                 $.ajax({
@@ -465,8 +410,7 @@
             // Call fetchLaptopData function on page load
             fetchLaptopData();
 
-            // Call fetchTotalLaptopData function on page load
-            fetchTotalLaptopData();
+
 
             // Button click event handler
             $("#start-scraping-btn").click(function (event) {
@@ -475,33 +419,52 @@
             });
 
 
-            // Function to update the date in the dropdown button
-            function updateDropdownDate() {
-                // Get the dropdown button element
-                var dropdownButton = document.getElementById('dropdownMenuDate2');
 
-                // Get the current date
-                var currentDate = new Date();
+        });
 
-                // Format the date as "DD Month YYYY" (e.g., "06 July 2023")
-                var formattedDate = currentDate.toLocaleDateString('en-US', {
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric'
+        //handle the selenium Bot
+        $(document).ready(function () {
+            // Handle form submission
+            $("#scraping-form").submit(function (event) {
+                event.preventDefault();
+                scheduleBot();
+            });
+
+            // Function to schedule the Selenium bot scraping
+            function scheduleBot() {
+                var numDays = parseInt($("#days-input").val());
+
+                $('#successAlert2').hide();
+                $('#errorAlert2').hide();
+                $('#waitAlert2').text(`Selenium Bot is set to scrape after ${numDays} days`).show();
+
+                $.ajax({
+                    url: "http://127.0.0.1:5000/schedulebot/api",
+                    type: "POST",
+                    data: { numDays: numDays },
+                    success: function (response) {
+                        console.log(response);
+                        $('#waitAlert2').hide();
+                        $('#successAlert2').text('Selenium Bot Scraping Scheduled Successfully').show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error scheduling the Selenium bot scraping:", error);
+                        $('#errorAlert2').text('Error scheduling the Selenium bot scraping').show();
+                        $('#waitAlert2').hide();
+                    }
                 });
-
-                // Update the date in the dropdown button
-                dropdownButton.innerHTML = '<i class="mdi mdi-calendar"></i> Today (' + formattedDate + ')';
             }
-
-            // Call the function to update the date on page reload
-            updateDropdownDate();
         });
 
 
 
-
     </script>
+
+    <!-- Add update time script -->
+    <script src="static/updatetime.js"></script>
+
+    <!-- Add total laptop data scraped script -->
+    <script src="static/fetchTotalLapData.js"></script>
 
 </body>
 

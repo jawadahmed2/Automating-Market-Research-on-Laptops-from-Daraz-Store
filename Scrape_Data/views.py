@@ -1,7 +1,7 @@
 import json
 from flask import  jsonify, request
 from .models import  Laptop_Data, Laptop_DataSchema, db
-from .scrapeLaptopData import scrape_laptop_data
+from .scrapeLaptopData import scrape_laptop_data, schedule_bot
 from Scrape_Data import app
 
 
@@ -50,6 +50,19 @@ def startscraping():
 
     # Return a response indicating the scraping process has started
     return "Scraping process started"
+
+
+
+@app.route('/schedulebot/api', methods=['POST'])
+def botscraping():
+    num_days = int(request.form['numDays'])
+
+    # Call the scrapeLaptopData function to start the scraping process
+    print(f"Request Made To Start Selenium Bot Scraping after Num_Days: {num_days}")
+    schedule_bot(num_days)  # Enter number of days to scrape
+
+    # Return a response indicating the scraping process has started
+    return "Automatically Selenium Bot Scraping process started"
 
 
 @app.route('/scrapeReviews/api', methods=['POST'])
