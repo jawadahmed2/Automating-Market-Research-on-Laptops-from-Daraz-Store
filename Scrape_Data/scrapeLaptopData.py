@@ -22,14 +22,17 @@ laptop_schema = Laptop_DataSchema(many=True)
 # logging.basicConfig(filename='selenium_bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-def scrape_laptop_data():
-    # Set up Selenium Chrome options
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')  # Run in headless mode to avoid opening a browser window
-    chrome_options.add_argument('--log-level=3')  # Suppress logging messages
+# Set up Selenium Chrome options
 
-    # Create a new instance of the Chrome driver
-    driver = webdriver.Chrome(options=chrome_options)
+chrome_options = Options()
+chrome_options.add_argument('--headless')  # Run in headless mode to avoid opening a browser window
+chrome_options.add_argument('--log-level=3')  # Suppress logging messages
+
+# Create a new instance of the Chrome driver
+driver = webdriver.Chrome(options=chrome_options)
+
+def scrape_laptop_data(pages):
+
     print('Laptop Data Scraping Started')
     try:
         # Open Daraz website
@@ -54,7 +57,7 @@ def scrape_laptop_data():
 
         # Scrape laptop data from first 10 pages
         data = []
-        for page in range(1, 2):
+        for page in range(1, pages + 1):
             # Scroll to the bottom of the page to load all laptops
             last_height = driver.execute_script(
                 "return document.body.scrollHeight")

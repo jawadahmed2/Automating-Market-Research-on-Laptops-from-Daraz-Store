@@ -42,6 +42,16 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .alert {
+            max-width: 400px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -63,22 +73,6 @@
 
                 <ul class="navbar-nav navbar-nav-right">
 
-                    <!-- <li class="nav-item nav-profile dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="User_Dashboard/images/faces/face28.jpg" alt="profile" />
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
-                            aria-labelledby="profileDropdown">
-                            <a href="User_Dashboard/pages/userProfile/userDetails.html" class="dropdown-item">
-                                <i class="ti-settings text-primary"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item">
-                                <i class="ti-power-off text-primary"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li> -->
 
                 </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
@@ -124,34 +118,6 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                            aria-controls="ui-basic">
-                            <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Registration</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="ui-basic">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="registration.html">SignUp Page</a></li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false"
-                            aria-controls="tables">
-                            <i class="icon-grid-2 menu-icon"></i>
-                            <span class="menu-title">Login</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="tables">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="login.html">SignIn Page</a></li>
-                            </ul>
-                        </div>
-                    </li>
-
 
 
                 </ul>
@@ -211,17 +177,13 @@
                                 <div class="col-md-6 mb-4 stretch-card transparent">
                                     <div class="card card-tale">
                                         <div class="card-body">
-                                            <h4 class="mb-4">Kindly Registered And Login For Saving Your Results</h4>
+                                            <h4 class="mb-4">Total Number Of Laptop Data Scraped: <span
+                                                    id="total_laptop_data"></span></h4>
                                             <p class="fs-30 mb-2" id="product_searched"></p>
-
-
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -270,10 +232,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- <tr>
-                        <td id="rev_name">Search Engine Marketing</td>
-                        <td id="rev_name">21 Sep 2018</td>
-                      </tr> -->
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -283,8 +242,10 @@
                 </div>
                 <br>
 
-                <form class="form-inline">
+                <form class="form">
                     <!-- <button class="" id="start-scraping-btn">Start Laptop Data Scraping</button> -->
+                    <label for="pages-input">Number of Pages to Scrape:</label>
+                    <input type="number" id="pages-input" min="1" step="1"> <br>
                     <input type="submit" id="start-scraping-btn" value="Start Laptop Data Scraping">
                     <div id="successAlert1" class="alert alert-success" role="alert" style="display:none;"></div>
                     <div id="waitAlert1" class="alert alert-success" role="alert" style="display:none;"></div>
@@ -295,7 +256,7 @@
                     <div class="col-md-10 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-title mb-0">Scraped Daraz Laptop Data Upto 10 Pages</p>
+                                <p class="card-title mb-0">Scraped Daraz Laptop Data Upto N Pages</p>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-borderless" id="scraped_table">
                                         <thead>
@@ -308,10 +269,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <!-- <td id="rev_name">1</td>
-                        <td id="rev_name">Search Engine Marketing</td>
-                        <td id="rev_name">21 Sep 2018</td>
-                        <td id="rev_rank">9</td> -->
+
                                             </tr>
                                         </tbody>
                                     </table>
@@ -320,8 +278,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
+
                 <footer class="footer">
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
                         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©
@@ -366,60 +323,67 @@
 
     <!--Script For Sending Data To The Server-->
     <script>
-        // $(document).ready(function () {
+        $(document).ready(function () {
 
-        //     $("#scrape_btn").click(function (event) {
-        //         $('#successAlert').hide();
-        //         $('#errorAlert').hide();
-        //         $('#review_table tbody').empty();
-        //         $('#waitAlert').text('Wait Product Is Scraping').show();
+            $("#scrape_btn").click(function (event) {
+                $('#successAlert').hide();
+                $('#errorAlert').hide();
+                $('#review_table tbody').empty();
+                $('#waitAlert').text('Wait Product Is Scraping').show();
 
-        //         event.preventDefault();
-        //         $.ajax({
-        //             data: {
-        //                 url: $('#url').val(),
-        //             },
-        //             type: 'POST',
-        //             url: 'http://127.0.0.1:5000/scrapeReviewsGuest/api'
+                event.preventDefault();
+                $.ajax({
+                    data: {
+                        url: $('#url').val(),
+                    },
+                    type: 'POST',
+                    url: 'http://127.0.0.1:5000/scrapeReview/api'
 
-        //         }).done(function (data) {
-        //             if (data.error) {
-        //                 $('#waitAlert').text('Wait Product Is Scraping').hide();
-        //                 $('#errorAlert').text(data.error).show();
-        //                 $('#successAlert').hide();
-        //                 return false
-        //             }
-        //             else {
-        //                 $('#product_name').text(data.Title).show();
-        //                 $('#errorAlert').hide();
-        //             }
-        //             $('#review_table').show();
-        //             $.each(data, function (i, v) {
-        //                 // console.log(i, v);
-        //                 // $("tbody").append("<tr><td>" + data['Name'][index] + "</td><td>" + "</td><td>" + data['Review'][index] + "</td></tr>");
-        //                 $.each(v, function (ind, val) {
-        //                     console.log(ind, val);
-        //                     $("tbody").append("<tr><td>" + ind + "</td><td>" + data['Name'][ind] + "</td><td>" + "</td><td>" + data['Review'][ind] + "</td></tr>");
+                }).done(function (data) {
+                    if (data.error) {
+                        $('#waitAlert').text('Wait Product Is Scraping').hide();
+                        $('#errorAlert').text(data.error).show();
+                        $('#successAlert').hide();
+                        return false
+                    }
+                    else {
+                        $('#product_name').text(data.Title).show();
+                        $('#errorAlert').hide();
+                    }
+                    $('#review_table').show();
+                    $.each(data, function (i, v) {
+                        // console.log(i, v);
+                        // $("tbody").append("<tr><td>" + data['Name'][index] + "</td><td>" + "</td><td>" + data['Review'][index] + "</td></tr>");
+                        $.each(v, function (ind, val) {
+                            console.log(ind, val);
+                            $("tbody").append("<tr><td>" + ind + "</td><td>" + data['Name'][ind] + "</td><td>" + "</td><td>" + data['Review'][ind] + "</td></tr>");
 
-        //                 });
-        //                 $('#waitAlert').text('Wait Product Is Scraping').hide();
-        //                 $('#successAlert').text('Product Sraped Successfully').show();
-        //                 return false;
+                        });
+                        $('#waitAlert').text('Wait Product Is Scraping').hide();
+                        $('#successAlert').text('Product Sraped Successfully').show();
+                        return false;
 
-        //             });
-
-
-        //         });
-        //         event.preventDefault();
-
-        //     });
+                    });
 
 
-        // });
+                });
+                event.preventDefault();
+
+            });
+
+
+        });
+
 
         $(document).ready(function () {
             // Function to start the scraping process
             function startScraping() {
+                var numPages = parseInt($('#pages-input').val());
+                if (isNaN(numPages) || numPages < 1) {
+                    alert('Invalid number of pages. Please enter a positive integer.');
+                    return;
+                }
+
                 $('#scraped_table tbody').empty();
                 $('#successAlert1').hide();
                 $('#errorAlert1').hide();
@@ -427,7 +391,8 @@
 
                 $.ajax({
                     url: "http://127.0.0.1:5000/startsraping/api",
-                    type: "GET",
+                    type: "POST",
+                    data: { numPages: numPages },
                     success: function (response) {
                         console.log(response);
                         // After starting the scraping, fetch and display the laptop data
@@ -443,34 +408,30 @@
                     }
                 });
             }
-
+            // Function to fetch the total number of laptop data
+            function fetchTotalLaptopData() {
+                $.ajax({
+                    url: "http://127.0.0.1:5000/get-total-laptop-data/api",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        var totalLaptopData = data.total;
+                        $("#total_laptop_data").text(totalLaptopData);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error retrieving total laptop data:", error);
+                    }
+                });
+            }
             // Function to fetch the laptop data and populate the table
             function fetchLaptopData() {
                 $.ajax({
-                    url: "/home",
+                    url: "http://127.0.0.1:5000/home/api",
                     type: "GET",
                     dataType: "json",
                     success: function (data) {
                         // Process the JSON data and populate the table
-                        var laptopData = data;
-                        var tableBody = $("#scraped_table tbody");
-                        tableBody.empty();
-
-                        // Iterate over the laptop data and populate the table rows
-                        for (var i = 0; i < laptopData.length; i++) {
-                            var laptop = laptopData[i];
-
-                            // Extract the truncated laptop name
-                            var truncatedName = laptop.laptopName.split(/,|-|\|/)[0].trim();
-
-                            var rowHtml = "<tr>" +
-                                "<td>" + (i + 1) + "</td>" +
-                                "<td>" + truncatedName + "</td>" +
-                                "<td>" + laptop.laptopPrice + "</td>" +
-                                "<td>" + laptop.laptopRating + "</td>" +
-                                "</tr>";
-                            tableBody.append(rowHtml);
-                        }
+                        populateTable(data);
                     },
                     error: function (xhr, status, error) {
                         console.log("Error retrieving laptop data:", error);
@@ -479,11 +440,62 @@
                 });
             }
 
+            // Function to populate the table with laptop data
+            function populateTable(laptopData) {
+                var tableBody = $("#scraped_table tbody");
+                tableBody.empty();
+
+                // Iterate over the laptop data and populate the table rows
+                for (var i = 0; i < laptopData.length; i++) {
+                    var laptop = laptopData[i];
+
+                    // Extract the truncated laptop name
+                    var truncatedName = laptop.laptopName.split(/,|-|\|/)[0].trim();
+
+                    var rowHtml = "<tr>" +
+                        "<td>" + (i + 1) + "</td>" +
+                        "<td>" + truncatedName + "</td>" +
+                        "<td>" + laptop.laptopPrice + "</td>" +
+                        "<td>" + laptop.laptopRating + "</td>" +
+                        "</tr>";
+                    tableBody.append(rowHtml);
+                }
+            }
+
+            // Call fetchLaptopData function on page load
+            fetchLaptopData();
+
+            // Call fetchTotalLaptopData function on page load
+            fetchTotalLaptopData();
+
             // Button click event handler
             $("#start-scraping-btn").click(function (event) {
                 event.preventDefault();
                 startScraping();
             });
+
+
+            // Function to update the date in the dropdown button
+            function updateDropdownDate() {
+                // Get the dropdown button element
+                var dropdownButton = document.getElementById('dropdownMenuDate2');
+
+                // Get the current date
+                var currentDate = new Date();
+
+                // Format the date as "DD Month YYYY" (e.g., "06 July 2023")
+                var formattedDate = currentDate.toLocaleDateString('en-US', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+                // Update the date in the dropdown button
+                dropdownButton.innerHTML = '<i class="mdi mdi-calendar"></i> Today (' + formattedDate + ')';
+            }
+
+            // Call the function to update the date on page reload
+            updateDropdownDate();
         });
 
 
