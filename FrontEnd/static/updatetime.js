@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    // $('#registerAlert').text('User Successfully Registered Kindly Login').show();
-
     // Function to update the date in the dropdown button
     function updateDropdownDate() {
         // Get the dropdown button element
