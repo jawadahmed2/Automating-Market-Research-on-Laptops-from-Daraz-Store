@@ -1,4 +1,3 @@
-import json
 from flask import  jsonify, request
 from .models import  Laptop_Data, Laptop_DataSchema, db
 from .scrapeLaptopData import scrape_laptop_data, schedule_bot
