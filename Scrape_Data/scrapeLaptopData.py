@@ -19,7 +19,35 @@ laptop_schema = Laptop_DataSchema(many=True)
 
 # Configure logging
 
-# logging.basicConfig(filename='selenium_bot.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Create a logger object
+logger = logging.getLogger('selenium_bot')
+logger.setLevel(logging.INFO)
+
+# Create a file handler to write info logs to the file
+info_handler = logging.FileHandler('selenium_bot_info.log')
+info_handler.setLevel(logging.INFO)
+
+# Create a file handler to write error logs to the file
+error_handler = logging.FileHandler('selenium_bot_error.log')
+error_handler.setLevel(logging.ERROR)
+
+# Create a formatter to specify the log message format
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+# Set the formatter for the handlers
+info_handler.setFormatter(formatter)
+error_handler.setFormatter(formatter)
+
+# Add the handlers to the logger
+logger.addHandler(info_handler)
+logger.addHandler(error_handler)
+
+# Example usage
+try:
+    # Some code that may raise an error
+    raise ValueError('An error occurred')
+except Exception as e:
+    logger.error(f'Error occurred: {str(e)}')
 
 
 # Set up Selenium Chrome options
@@ -76,12 +104,16 @@ def scrape_laptop_data(pages):
 
             for laptop in laptops:
                 # Extract the required laptop details
-                name = laptop.find_element(By.XPATH, './/div[@class="title--wFj93"]/a').text
-                price = laptop.find_element(By.XPATH, './/div[@class="price--NVB62"]/span').text
+                info_div = laptop.find_element(By.XPATH, './/div[@class="info--ifj7U"]')
+                name_element = info_div.find_element(By.XPATH, './/div[@class="title--wFj93"]/a')
+                name = name_element.text
+                link = name_element.get_attribute("href")
+                price_element = info_div.find_element(By.XPATH, './/div[@class="price--NVB62"]/span')
+                price = price_element.text
 
                 try:
                     # Adjust rating out of 10
-                    rating_element = laptop.find_element(By.XPATH, './/div[contains(@class, "rating--ZI3Ol")]')
+                    rating_element = info_div.find_element(By.XPATH, './/div[contains(@class, "rating--ZI3Ol")]')
                     rating_icons = rating_element.find_elements(By.XPATH, ".//i[contains(@class, 'star-icon--k88DV')]")
                     rating = 0
                     total_ratings = len(rating_icons)
@@ -120,16 +152,16 @@ def scrape_laptop_data(pages):
                 laptop_data = {
                     'Name': name,
                     'Price': price,
-                    'Rating': rating
+                    'Rating': rating,
+                    'Link': link
                 }
                 data.append(laptop_data)
 
                 # Store the laptop details into the database using Flask ORM
-
                 existing_laptop = Laptop_Data.query.filter_by(laptopName=name).first()
                 if existing_laptop is None:
                     # Store the laptop details in a new record
-                    laptop_data = Laptop_Data(laptopName=name, laptopPrice=price, laptopRating=rating)
+                    laptop_data = Laptop_Data(laptopName=name, laptopPrice=price, laptopRating=rating, laptopLink=link)
                     db.session.add(laptop_data)
                     db.session.commit()
 
@@ -137,6 +169,7 @@ def scrape_laptop_data(pages):
                     serialized_data = laptop_schema.dump([laptop_data])
                     json_data = jsonify(serialized_data)
                     # Perform any further processing or response handling with the JSON data
+
 
                 else:
                     # Duplicate laptop entry found, skip adding to the database

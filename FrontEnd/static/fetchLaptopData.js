@@ -33,10 +33,12 @@ $(document).ready(function () {
                 "<td>" + truncatedName + "</td>" +
                 "<td>" + laptop.laptopPrice + "</td>" +
                 "<td>" + laptop.laptopRating + "</td>" +
+                "<td><a href='" + laptop.laptopLink + "' target='_blank'>View</a></td>" +
                 "</tr>";
             tableBody.append(rowHtml);
         }
     }
+
 
     // Call fetchLaptopData function on page load
     fetchLaptopData();

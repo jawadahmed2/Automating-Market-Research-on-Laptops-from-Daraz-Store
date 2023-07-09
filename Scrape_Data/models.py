@@ -12,15 +12,17 @@ class Laptop_Data(db.Model):
     laptopName = db.Column(db.Text())
     laptopPrice = db.Column(db.Text())
     laptopRating = db.Column(db.Text())
+    laptopLink = db.Column(db.Text())
 
-    def __init__(self, laptopName, laptopPrice, laptopRating):
+    def __init__(self, laptopName, laptopPrice, laptopRating,laptopLink):
         self.laptopName = laptopName
         self.laptopPrice = laptopPrice
         self.laptopRating = laptopRating
+        self.laptopLink = laptopLink
 
 
 
 class Laptop_DataSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'laptopName','laptopPrice','laptopRating')
+        fields = ('id', 'laptopName','laptopPrice','laptopRating','laptopLink')
 
